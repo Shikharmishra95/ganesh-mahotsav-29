@@ -336,6 +336,45 @@
   </div>
 </section>
 
+  
+<!-- ========= PATRIKA SECTION ========= -->
+<section id="patrika" class="py-16 bg-orange-50">
+  <h3 class="text-2xl md:text-3xl font-bold text-center text-red-800 mb-8">आमंत्रण पत्रिका</h3>
+  <div class="max-w-xl mx-auto px-4">
+    <div class="relative flex justify-center items-center">
+      <img id="patrika-main" src="images/patrika/1.jpg"
+           alt="पत्रिका"
+           class="w-full max-w-md h-auto aspect-[3/4] rounded-xl shadow bg-white"
+           style="max-height:75vh;">
+      <button onclick="patrikaPrev()" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 text-white px-3 py-2 rounded-full">‹</button>
+      <button onclick="patrikaNext()" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 text-white px-3 py-2 rounded-full">›</button>
+    </div>
+    <div class="mt-4 text-center text-orange-600 font-bold text-lg" id="patrika-index"></div>
+  </div>
+</section>
+
+
+
+<script>
+
+  // ---------- PATRIKA SLIDE ----------
+let patrikaIdx = 0;
+const patrikaTotal = 50;
+
+// मुख्य फोटो दिखाएँ
+function showPatrika(n) {
+  patrikaIdx = (n + patrikaTotal) % patrikaTotal;
+  document.getElementById('patrika-main').src = `images/patrika/${patrikaIdx + 1}.jpg`;
+  document.getElementById('patrika-index').innerText = `पृष्ठ ${patrikaIdx + 1} / ${patrikaTotal}`;
+}
+
+// बटन के लिए functions
+function patrikaPrev() { showPatrika(patrikaIdx - 1); }
+function patrikaNext() { showPatrika(patrikaIdx + 1); }
+
+// पेज लोड पर पहली पत्रिका फोटो दिखा दें
+showPatrika(0);
+
 <script>
   /* ---------- MOBILE ---------- */
   let mobileIdx = 0;
@@ -437,4 +476,5 @@
 </body>
 
 </html>
+
 
