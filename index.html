@@ -199,19 +199,24 @@
   <!-- Swiper JS -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
-    new Swiper('.committeeSwiper', {
-      slidesPerView: 1,
-      spaceBetween: 30,
-      loop: true,
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-      breakpoints: {
-        640: { slidesPerView: 2 },
-        1024: { slidesPerView: 3 },
-      }
-    });
+  new Swiper('.committeeSwiper', {
+    slidesPerView: 1,
+    spaceBetween: 30,
+    loop: true,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    autoplay: {
+      delay: 2000,   // 2000ms = 2 seconds
+      disableOnInteraction: false, // user swipe kare tab bhi autoplay continue rahe
+    },
+    breakpoints: {
+      640: { slidesPerView: 2 },
+      1024: { slidesPerView: 3 },
+    }
+  });
+</script>
   </script>
 </section>
 
@@ -356,10 +361,10 @@
 </section>
 
 <script>
-
-  // ---------- PATRIKA SLIDE ----------
+// ---------- PATRIKA SLIDE ----------
 let patrikaIdx = 0;
 const patrikaTotal = 50;
+let patrikaInterval;
 
 // मुख्य फोटो दिखाएँ
 function showPatrika(n) {
@@ -369,10 +374,36 @@ function showPatrika(n) {
 }
 
 // बटन के लिए functions
-function patrikaPrev() { showPatrika(patrikaIdx - 1); }
-function patrikaNext() { showPatrika(patrikaIdx + 1); }
+function patrikaPrev() { 
+  showPatrika(patrikaIdx - 1); 
+  restartAutoSlide();
+}
 
-// पेज लोड पर पहली पत्रिका फोटो दिखा दें
+function patrikaNext() { 
+  showPatrika(patrikaIdx + 1); 
+  restartAutoSlide();
+}
+
+// Auto slide start karo
+function startAutoSlide() {
+  patrikaInterval = setInterval(() => {
+    patrikaNext();
+  }, 2000); // 2000ms = 2 second
+}
+
+// User button dabaye to auto-slide reset ho jaye
+function restartAutoSlide() {
+  clearInterval(patrikaInterval);
+  startAutoSlide();
+}
+
+// पेज load hote hi start karo
+document.addEventListener("DOMContentLoaded", () => {
+  showPatrika(0);
+  startAutoSlide();
+});
+
+टो दिखा दें
 showPatrika(0);
 
   /* ---------- MOBILE ---------- */
@@ -475,6 +506,7 @@ showPatrika(0);
 </body>
 
 </html>
+
 
 
 
