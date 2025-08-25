@@ -205,7 +205,7 @@ new Swiper('.committeeSwiper', {
   loop: true,
   pagination: { el: '.swiper-pagination', clickable: true },
   autoplay: {
-    delay: 5000,              // 5s
+    delay: 3000,              // 3s
     disableOnInteraction: false,
     pauseOnMouseEnter: true   // hover par pause
   },
@@ -387,18 +387,26 @@ function patrikaNext() {
   restartAutoSlide();
 }
 
-// Auto slide start karo
 function startAutoSlide() {
-  patrikaInterval = setInterval(() => {
-    patrikaNext();
-  }, 2000); // 2000ms = 2 second
+  patrikaInterval = setInterval(() => { patrikaNext(); }, 5000); // 5s
 }
+function stopAutoSlide() { clearInterval(patrikaInterval); }
+function restartAutoSlide() { stopAutoSlide(); startAutoSlide(); }
 
-// User button dabaye to auto-slide reset ho jaye
-function restartAutoSlide() {
-  clearInterval(patrikaInterval);
+document.addEventListener("DOMContentLoaded", () => {
+  showPatrika(0);
   startAutoSlide();
-}
+  const box = document.querySelector('#patrika .relative.flex'); // या id="patrika-container" दें और उसे चुनें
+  // Desktop hover
+  box.addEventListener('mouseenter', stopAutoSlide);
+  box.addEventListener('mouseleave', startAutoSlide);
+  // Touch hold
+  box.addEventListener('touchstart', stopAutoSlide, { passive: true });
+  box.addEventListener('touchend',   startAutoSlide);
+  box.addEventListener('touchcancel',startAutoSlide);
+});
+
+
 
 // पेज load hote hi start karo
 document.addEventListener("DOMContentLoaded", () => {
@@ -509,6 +517,7 @@ document.addEventListener("DOMContentLoaded", () => {
 </body>
 
 </html>
+
 
 
 
